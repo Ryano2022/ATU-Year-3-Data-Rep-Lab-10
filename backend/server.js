@@ -36,6 +36,14 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.put('/api/book/:id', async (req, res) => {
+  console.log("Update: " + req.params.id);
+  
+  let book = await bookModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+  res.send(book);
+})
+
+
 app.post('/api/book', (req, res) => {
   console.log(req.body);
   // For making mongo db stuff.
