@@ -47,7 +47,7 @@ export default function Edit(props) {
       });
   }
   return (
-    <div>
+    <div style={{ width: '40%', margin: '0 auto'}}>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Add Book Title: </label>

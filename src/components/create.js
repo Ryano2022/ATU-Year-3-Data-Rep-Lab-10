@@ -26,7 +26,7 @@ function Create() {
     } // Show up in the logs.
 
     return (
-        <div>
+        <div style={{ width: '40%', margin: '0 auto'}}>
             <h3>Hello from create.js component.</h3>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
