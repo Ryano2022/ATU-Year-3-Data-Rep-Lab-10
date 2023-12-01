@@ -44,10 +44,13 @@ app.put('/api/book/:id', async (req, res) => {
 })
 
 app.delete('/api/book/:id', async (req, res)=> {
+  // Logging it so you can see in the console.
   console.log("Delete: " + req.params.id);
-  
+ 
+  // Find the ID of the book and then delete the book.
   let book = await bookModel.findByIdAndDelete(req.params.id);
   res.send(book);
+  
 }
 )
 
