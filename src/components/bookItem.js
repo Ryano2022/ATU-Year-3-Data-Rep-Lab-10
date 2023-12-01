@@ -18,7 +18,10 @@ function BookItem(props) {
                     <Link to={'/edit/' + props.myBook._id} className='btn btn-primary'>Edit</Link>
                     <Button variant='danger' onClick={(e) => {
                         axios.delete('http://localhost:4000/api/book/' + props.myBook._id)
-                            .then()
+                            .then((res)=> {
+                                let reload = props.Reload();
+                                // For reloading the page once you've deleted something.
+                            })
                             .catch();
                     }}>Delete</Button>
                 </Card>
