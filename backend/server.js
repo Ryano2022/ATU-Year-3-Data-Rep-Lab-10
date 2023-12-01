@@ -38,11 +38,18 @@ app.use(function (req, res, next) {
 
 app.put('/api/book/:id', async (req, res) => {
   console.log("Update: " + req.params.id);
-  
-  let book = await bookModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+
+  let book = await bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.send(book);
 })
 
+app.delete('/api/book/:id', async (req, res)=> {
+  console.log("Delete: " + req.params.id);
+  
+  let book = await bookModel.findByIdAndDelete(req.params.id);
+  res.send(book);
+}
+)
 
 app.post('/api/book', (req, res) => {
   console.log(req.body);
@@ -60,27 +67,27 @@ app.post('/api/book', (req, res) => {
 
 // Receive data through the body of the HTTP request.
 app.post('/name', (req, res) => {
-    res.send('Hello ' + req.body.fname + " " + req.body.lname);
-  }
+  res.send('Hello ' + req.body.fname + " " + req.body.lname);
+}
 )
 
 // Receive data through the URL.
 app.get('/name', (req, res) => {
-    res.send('Hello ' + req.query.fname + " " + req.query.lname);
-  }
+  res.send('Hello ' + req.query.fname + " " + req.query.lname);
+}
 )
 
 // Test
 app.get('/test', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-  }
+  res.sendFile(__dirname + '/index.html');
+}
 )
 
 // API to use.
 app.get('/api/books', async (req, res) => {
-    let books = await bookModel.find({});
-    res.json(books);
-  }
+  let books = await bookModel.find({});
+  res.json(books);
+}
 )
 
 app.get('/api/book/:identifier', async (req, res) => {
@@ -91,25 +98,25 @@ app.get('/api/book/:identifier', async (req, res) => {
 
 // The slashes are URLs.
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-  }
+  res.send('Hello World!');
+}
 )
 
 // Test
 app.get('/whatever', (req, res) => {
-    res.send('Good Bye!');
-  }
+  res.send('Good Bye!');
+}
 )
 
 app.get('/datarep', (req, res) => {
-    res.send('Welcome to Data Representation & Querying');
-  }
+  res.send('Welcome to Data Representation & Querying');
+}
 )
 
 // Anything can go where :name is on the address bar on the browser.
 app.get('/hello/:name', (req, res) => {
-    res.send('HELLO' + req.params.name);
-  }
+  res.send('HELLO' + req.params.name);
+}
 )
 
 app.listen(
