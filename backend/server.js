@@ -9,6 +9,10 @@ app.use(bodyParser.json());
 // getting-started.js
 const mongoose = require('mongoose');
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
+
 main().catch(err => console.log(err));
 
 async function main() {
@@ -25,17 +29,6 @@ const bookSchema = new mongoose.Schema({
 
 const bookModel = mongoose.model('my_books', bookSchema);
 
-// Allow requests from other URLs.
-const cors = require('cors');
-app.use(cors());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 app.put('/api/book/:id', async (req, res) => {
   console.log("Update: " + req.params.id);
 
@@ -43,14 +36,14 @@ app.put('/api/book/:id', async (req, res) => {
   res.send(book);
 })
 
-app.delete('/api/book/:id', async (req, res)=> {
+app.delete('/api/book/:id', async (req, res) => {
   // Logging it so you can see in the console.
   console.log("Delete: " + req.params.id);
- 
+
   // Find the ID of the book and then delete the book.
   let book = await bookModel.findByIdAndDelete(req.params.id);
   res.send(book);
-  
+
 }
 )
 
@@ -121,6 +114,11 @@ app.get('/hello/:name', (req, res) => {
   res.send('HELLO' + req.params.name);
 }
 )
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../build/index.html'));
+});
+
 
 app.listen(
   port, () => {
