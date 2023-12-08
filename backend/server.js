@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 // getting-started.js
 const mongoose = require('mongoose');
 
+// Serve static files from the React app.
 const path = require('path');
 app.use(express.static(path.join(__dirname, '../build')));
 app.use('/static', express.static(path.join(__dirname, 'build//static')));
@@ -115,6 +116,7 @@ app.get('/hello/:name', (req, res) => {
 }
 )
 
+// For anything that isn't specified above just go to index.html.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../build/index.html'));
 });
